@@ -5,13 +5,14 @@ from pygame.locals import QUIT
 
 pygame.init()
 
-HANGMANWINDOW = pygame.display.set_mode((490, 300))
+#Définition de la fenêtre de jeu
+HANGMANWINDOW = pygame.display.set_mode((500, 300))
 pygame.display.set_caption('Python Game')
 clock = pygame.time.Clock()
 font = pygame.font.SysFont('Times',22, False, False)
 
 
-
+#Fonction concernant l'avancement des stages en focntions des erreurs de l'utilisateur
 def drawHangman(stage):
     if stage > 6:
         stage = 6
@@ -19,15 +20,15 @@ def drawHangman(stage):
     img = pygame.transform.scale(img, (150,200))
     HANGMANWINDOW.blit(img, (0,0))
     
-
+#Fonction pour afficher un message dans les deux cas de figure : Win or Lose, ainsi que les pointillets pour insérer les lettres désirées.
 def drawWord():
     status = hm.gameStatus()
     if status == 0:
-        textSurface = font.render("Type your Guess",False, 'black')
+        textSurface = font.render("Type your Guess in Lowercase",False, 'black')
     elif status == 1:
-        textSurface = font.render("You Win ! Press ESC for restarting",False, 'black')
+        textSurface = font.render("You won ! Press ESC for restarting",False, 'black')
     else:
-        textSurface = font.render("You lose ! Press ESC for restarting",False, 'black')
+        textSurface = font.render("You lost ! Press ESC for restarting",False, 'black')
 
     HANGMANWINDOW.blit(textSurface,(180,50))
     word = ""
@@ -49,7 +50,7 @@ def drawWord():
 
 
 while True:
-    HANGMANWINDOW.fill('lightblue')
+    HANGMANWINDOW.fill('lightgrey')
     drawHangman(hm.guessCount)
     drawWord()
     for event in pygame.event.get():
@@ -57,7 +58,6 @@ while True:
             pygame.quit()
             sys.exit()
         elif event.type == pygame.KEYUP:
-            #print(event.unicode, str(event.unicode).isalpha())
             if str(event.unicode).isalpha() :
                 hm.checkWord(str(event.unicode))
             elif event.key == pygame.K_ESCAPE:

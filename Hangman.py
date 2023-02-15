@@ -51,7 +51,6 @@ class Hangman:
         for i,ch in enumerate(self.wordList):
             if guess == ch:
                 self.guessList[i] = ch
-                #self.pastGuess.remove(guess)
                 result = True
         if result == False:
             self.guessCount +=1
